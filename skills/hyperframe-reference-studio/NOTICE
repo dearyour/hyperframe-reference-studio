@@ -1,0 +1,14 @@
+Hyperframe Reference Studio
+Copyright 2026 dearyour
+
+An independent agent skill, example composition, and verification utilities.
+Developed with assistance from OpenAI Codex.
+
+HyperFrames is developed by HeyGen: https://github.com/heygen-com/hyperframes
+This project uses its public composition contract and references its public
+documentation. It is not an official HyperFrames distribution or endorsement.
+The rendering engine and official skill documents are not bundled here.
+
+Third-party fonts and installed JavaScript dependencies retain their respective
+licenses. See THIRD_PARTY_NOTICES.md. The Apache-2.0 license for this project's
+original material does not replace those third-party licenses.

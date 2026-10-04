@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Reference Studio — Frame to film</title>
+  <style>
+    @font-face { font-family: 'Studio Sans'; src: url('assets/fonts/NotoSansKR.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-display: block; }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; }
+    body { font-family: 'Studio Sans', sans-serif; color: #20243b; }
+    #studio { width: 100%; height: 100%; position: relative; overflow: hidden; background: #f2f4fa; }
+    .stage { position: absolute; inset: 0; background: radial-gradient(ellipse at 90% 13%, #dedafa 0, transparent 46%), radial-gradient(ellipse at 0% 82%, #d5eeeb 0, transparent 45%), #f2f4fa; }
+    .masthead { position: absolute; left: 82px; right: 82px; top: 84px; display: flex; align-items: center; gap: 20px; font-size: 28px; font-weight: 650; letter-spacing: 3px; }
+    .studio-mark { width: 50px; height: 50px; border: 3px solid #4f41be; border-radius: 15px; position: relative; }
+    .studio-mark::after { content: ''; position: absolute; width: 19px; height: 19px; background: #4f41be; right: 6px; bottom: 6px; border-radius: 6px; }
+    .edition { margin-left: auto; letter-spacing: 1px; font-size: 23px; color: #555d73; }
+    .intro { position: absolute; top: 172px; left: 82px; right: 82px; }
+    h1 { margin: 0; font-size: 94px; line-height: 1.24; font-weight: 760; letter-spacing: -5px; }
+    .subtitle { margin: 23px 0 0; font-size: 32px; color: #555d73; font-weight: 450; letter-spacing: -0.7px; }
+    .panel { position: absolute; left: 82px; width: 916px; border: 2px solid #ffffff; border-radius: 35px; background: #fff; box-shadow: 0 22px 40px #28345b12, 0 4px 10px #28345b08; overflow: hidden; }
+    .panel-head { display: flex; align-items: center; gap: 16px; height: 96px; padding: 0 32px; }
+    .step { width: 41px; height: 41px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: #efedf9; color: #5142bc; font-size: 24px; font-weight: 750; }
+    h2 { font-size: 29px; font-weight: 650; margin: 0; letter-spacing: -0.8px; }
+    .detail { margin-left: auto; font-size: 23px; color: #555d73; }
+    #reference-panel { top: 391px; height: 525px; }
+    .art-window { position: absolute; left: 24px; right: 24px; top: 98px; bottom: 24px; border-radius: 23px; background: #e9e7fb; overflow: hidden; }
+    .reference-art { width: 100%; height: 100%; display: block; }
+    .crop { position: absolute; width: 54px; height: 54px; border-color: #5142bc; border-style: solid; border-width: 0; }
+    .crop.tl { top: 23px; left: 23px; border-top-width: 3px; border-left-width: 3px; }
+    .crop.tr { top: 23px; right: 23px; border-top-width: 3px; border-right-width: 3px; }
+    .crop.bl { bottom: 23px; left: 23px; border-bottom-width: 3px; border-left-width: 3px; }
+    .crop.br { bottom: 23px; right: 23px; border-bottom-width: 3px; border-right-width: 3px; }
+    #motion-panel { top: 951px; height: 368px; }
+    .motion-chart { position: absolute; left: 34px; top: 108px; width: 844px; height: 176px; }
+    .chart-note { position: absolute; left: 34px; right: 34px; bottom: 23px; display: flex; justify-content: space-between; font-size: 23px; color: #555d73; }
+    .chart-note strong { color: #4f41be; font-weight: 600; }
+    #film-panel { top: 1354px; height: 330px; }
+    .filmstrip { display: flex; gap: 14px; position: absolute; top: 101px; left: 32px; right: 32px; }
+    .still { flex: 1; height: 131px; border: 2px solid #e2def5; border-radius: 15px; position: relative; overflow: hidden; background: #eeeafa; }
+    .still::before { content: ''; position: absolute; width: 67px; height: 67px; border-radius: 20px; background: linear-gradient(135deg, #a999f6, #5344c1); left: 34px; top: 32px; box-shadow: 0 10px 14px #44309f30; }
+    .still:nth-child(2)::before { left: 50px; top: 20px; border-radius: 26px; }
+    .still:nth-child(3)::before { left: 70px; top: 40px; border-radius: 33px; }
+    .still:nth-child(4)::before { left: 80px; top: 26px; border-radius: 25px; }
+    .still:nth-child(5)::before { left: 55px; top: 19px; border-radius: 19px; }
+    .progress { position: absolute; bottom: 40px; left: 32px; right: 32px; height: 5px; border-radius: 5px; background: #dfdaef; }
+    .progress-fill { width: 100%; height: 100%; border-radius: 5px; background: #6554cc; }
+    .playhead { position: absolute; top: -7px; left: 0; width: 19px; height: 19px; border-radius: 50%; background: #6554cc; border: 3px solid #fff; box-shadow: 0 0 0 2px #6554cc; }
+    .footer { position: absolute; top: 1746px; left: 82px; right: 82px; display: flex; align-items: center; justify-content: space-between; font-size: 24px; color: #555d73; }
+    .format { display: flex; gap: 28px; }
+    .local { display: flex; align-items: center; gap: 12px; color: #236259; font-weight: 600; }
+    .local::before { content: ''; width: 12px; height: 12px; border-radius: 50%; background: #388c7e; }
+  </style>
+  <script src="assets/vendor/gsap.min.js"></script>
+</head>
+<body>
+  <div id="studio" data-composition-id="studio" data-width="1080" data-height="1920" data-duration="6">
+    <div class="stage"></div>
+    <div id="studio-content">
+      <div class="masthead"><span class="studio-mark"></span><span>REFERENCE STUDIO</span><span class="edition">DEMO 01</span></div>
+      <div class="intro"><h1>Frame to film.</h1><p class="subtitle">한 장의 구도에서, 하나의 움직임으로.</p></div>
+      <section id="reference-panel" class="panel">
+        <div class="panel-head"><span class="step">01</span><h2>구도를 읽다</h2><span class="detail">Reference</span></div>
+        <div class="art-window">
+          <svg class="reference-art" viewBox="0 0 864 399" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="보라색 입체 도형과 기하학적 구도">
+            <defs>
+              <linearGradient id="art-bg" x1="0" y1="0" x2="864" y2="399" gradientUnits="userSpaceOnUse"><stop stop-color="#f4f2fe"/><stop offset="1" stop-color="#dfd9f8"/></linearGradient>
+              <linearGradient id="art-face" x1="264" y1="73" x2="563" y2="332" gradientUnits="userSpaceOnUse"><stop stop-color="#b6a4fa"/><stop offset=".5" stop-color="#8370df"/><stop offset="1" stop-color="#5643b4"/></linearGradient>
+              <linearGradient id="art-side" x1="575" y1="154" x2="575" y2="327" gradientUnits="userSpaceOnUse"><stop stop-color="#7761cd"/><stop offset="1" stop-color="#3d2d87"/></linearGradient>
+              <radialGradient id="art-shadow"><stop stop-color="#36276c" stop-opacity=".24"/><stop offset="1" stop-color="#36276c" stop-opacity="0"/></radialGradient>
+            </defs>
+            <path fill="url(#art-bg)" d="M0 0h864v399H0z"/>
+            <path d="M0 301 864 107M0 369 864 175M120 399 864 232M0 111l720 288M0 41l864 346M94 0l770 308" stroke="#bcb4dc" opacity=".36"/>
+            <ellipse id="art-floor" cx="453" cy="317" rx="268" ry="59" fill="url(#art-shadow)"/>
+            <g id="art-object">
+              <path d="M504 104 598 149v151c0 16-13 28-29 24l-65-18z" fill="url(#art-side)"/>
+              <path d="M304 93c0-17 14-30 31-26l164 33c23 5 40 25 40 49v143c0 22-20 38-41 33l-155-36c-23-5-39-25-39-48z" fill="url(#art-face)" stroke="#c6baf8" stroke-width="2"/>
+              <path d="m346 115 146 29v63l-146-31z" fill="#ded6fd" fill-opacity=".53"/>
+              <path d="m346 199 88 20v16l-88-21z" fill="#f2edff" fill-opacity=".75"/>
+              <path d="m346 235 127 30v9l-127-29z" fill="#eee7ff" fill-opacity=".43"/>
+            </g>
+            <circle id="art-satellite" cx="645" cy="92" r="28" fill="#eafbf6" stroke="#a5d4c5" stroke-width="2"/>
+            <path d="M184 239h54v54h-54z" fill="#faf8ff" stroke="#c4b6ee" stroke-width="2"/>
+          </svg>
+          <span class="crop tl"></span><span class="crop tr"></span><span class="crop bl"></span><span class="crop br"></span>
+        </div>
+      </section>
+      <section id="motion-panel" class="panel">
+        <div class="panel-head"><span class="step">02</span><h2>움직임을 그리다</h2><span class="detail">Motion</span></div>
+        <svg class="motion-chart" viewBox="0 0 844 176" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="시작에서 끝으로 이어지는 부드러운 모션 경로">
+          <path d="M30 30h784M30 87h784M30 144h784" stroke="#eeebf5" stroke-width="2"/>
+          <path id="motion-guide" d="M35 123C148 123 163 28 286 43S481 189 584 112 734 58 808 28" stroke="#d6ceee" stroke-width="4" stroke-dasharray="5 10"/>
+          <path id="motion-path" d="M35 123C148 123 163 28 286 43S481 189 584 112 734 58 808 28" stroke="#7561d4" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="35" cy="123" r="8" fill="#7561d4"/>
+          <circle cx="808" cy="28" r="8" fill="#7561d4"/>
+          <circle id="motion-marker" cx="35" cy="123" r="16" fill="#6450c5" stroke="#fff" stroke-width="5"/>
+        </svg>
+        <div class="chart-note"><span>시작</span><strong>관찰 → 설계 → 재생</strong><span>도착</span></div>
+      </section>
+      <section id="film-panel" class="panel">
+        <div class="panel-head"><span class="step">03</span><h2>프레임을 잇다</h2><span class="detail">6.0s · 180 frames</span></div>
+        <div class="filmstrip"><div class="still"></div><div class="still"></div><div class="still"></div><div class="still"></div><div class="still"></div></div>
+        <div class="progress"><div class="progress-fill"></div><div class="playhead"></div></div>
+      </section>
+      <div class="footer"><div class="format"><span>1080 × 1920</span><span>30 fps</span><span>MP4</span></div><span class="local">로컬 렌더</span></div>
+    </div>
+  </div>
+  <script>
+    const timeline = gsap.timeline({ paused: true });
+    timeline.fromTo('.masthead', { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out' }, 0);
+    timeline.fromTo('.intro', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, ease: 'power3.out' }, 0.08);
+    timeline.fromTo('#reference-panel', { y: 48, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, ease: 'power3.out' }, 0.15);
+    timeline.fromTo('#motion-panel', { y: 48, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, ease: 'power3.out' }, 0.64);
+    timeline.fromTo('#film-panel', { y: 48, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, ease: 'power3.out' }, 1.12);
+    timeline.fromTo('.footer', { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 1.6);
+    timeline.fromTo('#art-object', { y: 14 }, { y: -10, duration: 1.75, ease: 'sine.inOut' }, 0.4);
+    timeline.to('#art-object', { y: 0, duration: 1.6, ease: 'sine.inOut' }, 2.15);
+    timeline.fromTo('#art-satellite', { y: 20 }, { y: -8, duration: 2.5, ease: 'sine.inOut' }, 0.45);
+    timeline.to('#art-satellite', { y: 0, duration: 1.2, ease: 'sine.inOut' }, 2.95);
+    const path = document.getElementById('motion-path');
+    const marker = document.getElementById('motion-marker');
+    const pathLength = path.getTotalLength();
+    const motion = { progress: 0 };
+    path.style.strokeDasharray = String(pathLength);
+    path.style.strokeDashoffset = String(pathLength);
+    timeline.to(motion, { progress: 1, duration: 2.8, ease: 'power1.inOut', onUpdate: () => {
+      const point = path.getPointAtLength(motion.progress * pathLength);
+      path.style.strokeDashoffset = String((1 - motion.progress) * pathLength);
+      marker.setAttribute('cx', String(point.x));
+      marker.setAttribute('cy', String(point.y));
+    } }, 1.25);
+    timeline.fromTo('.still', { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.13, ease: 'power3.out' }, 1.5);
+    timeline.fromTo('.progress-fill', { scaleX: 0, transformOrigin: 'left center' }, { scaleX: 1, duration: 3.3, ease: 'none' }, 1.4);
+    timeline.fromTo('.playhead', { x: 0 }, { x: 829, duration: 3.3, ease: 'none' }, 1.4);
+    window.__timelines['studio'] = timeline;
+  </script>
+</body>
+</html>

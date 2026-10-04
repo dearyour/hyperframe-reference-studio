@@ -1,0 +1,11 @@
+{
+  "duration": 6,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#reference-panel", "bySec": 0.8 },
+    { "kind": "appearsBy", "selector": "#motion-panel", "bySec": 1.6 },
+    { "kind": "appearsBy", "selector": "#film-panel", "bySec": 2.4 },
+    { "kind": "staysInFrame", "selector": "#reference-panel" },
+    { "kind": "staysInFrame", "selector": "#motion-panel" },
+    { "kind": "staysInFrame", "selector": "#film-panel" }
+  ]
+}

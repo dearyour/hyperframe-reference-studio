@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hyperframe Reference Studio"
+  short_description: "Rebuild reference motion and verify rendered MP4s"
+  default_prompt: "Use $hyperframe-reference-studio to analyze my reference, build its motion in local HyperFrames, and verify the final MP4."

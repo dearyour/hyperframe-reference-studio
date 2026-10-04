@@ -1,0 +1,17 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.qa/
+.venv/
+node_modules/
+.npm-cache/
+.hyperframes/
+dist/
+skills/hyperframe-reference-studio/assets/studio-demo/assets/vendor/
+skills/hyperframe-reference-studio/assets/studio-demo/out.mp4
+skills/hyperframe-reference-studio/assets/studio-demo/snapshots/
+skills/hyperframe-reference-studio/assets/studio-demo/review/
+skills/hyperframe-reference-studio/assets/studio-demo/*.log
