@@ -48,3 +48,15 @@ There is no input SRT in this example.
 | Footer | 1.60–2.10 s | Hold through 6.00 s |
 
 Rendering on other browser/OS versions may change pixels or encoding bytes. Duration and structural checks should still be rerun locally.
+
+## Public installation check
+
+The repository and raw skill file were accessible without authentication. The Skills CLI installed the skill from the public GitHub URL into a clean temporary Codex project:
+
+```sh
+npx -y skills add dearyour/hyperframe-reference-studio --skill hyperframe-reference-studio --agent codex --copy --yes
+```
+
+All 18 installed skill files matched the published source. The installed helper created a new project containing the font, licenses, lockfile, and source. `npm ci`, setup, lint (0 errors and 0 warnings), and rendering succeeded from that new project. Its MP4 again measured `6.000000` seconds. The project-scoped install was used for this test to avoid altering an existing global skill directory.
+
+These are local execution results. GitHub Actions is not enabled; `ci-example.yml` is an optional workflow example.
